@@ -6,3 +6,17 @@ regions:
 compartments:
  - compartment_ocid: ""
    fetch_hosts_from_subcompartments: false
+
+
+createfile.yaml
+===============
+
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name : create file
+      file: path=/tmp/testfile state=touch
+    - name : print
+      debug:
+       msg: file created
