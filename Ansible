@@ -32,3 +32,17 @@ createfile.yaml
       - openssl-devel
       - git
       - htop
+      
+      
+---
+# This is a Block Name 
+- hosts: localhost
+  become: true
+  tasks:
+  - name : install http
+    yum: name=httpd state=latest
+  - name: start and enable httpd
+    service: name=httpd state=restarted enabled=yes
+  handlers:
+  - name: restart apache
+    service: name=httpd state=restarted
