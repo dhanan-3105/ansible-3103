@@ -71,3 +71,22 @@ createfile.yaml
    - name: closure
      debug:
         msg : "file created in {{inventory_hostname}}"
+        
+        
+  
+- name: Add several users
+  hosts: all
+  remote_user: opc
+  become: yes
+  tasks:
+  -  name: users
+     ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+        groups: "wheel"
+     loop:
+        - testuser11
+        - testuser21
+  -  name: print users
+     debug:
+        msg: "Print the users
