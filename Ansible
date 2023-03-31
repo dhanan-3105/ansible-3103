@@ -1,0 +1,8 @@
+plugin: oracle.oci.oci
+
+regions:
+ - eu-frankfurt-1
+
+compartments:
+ - compartment_ocid: ""
+   fetch_hosts_from_subcompartments: false
