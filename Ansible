@@ -121,3 +121,19 @@ createfile.yaml
     - name: remove container
       command : podman rm -f testnginx
 
+
+- name : List summary
+  collections:
+    - oracle.oci
+  connection: local
+  hosts: localhost
+  tasks:
+   - name: List availability domains
+     oci_identity_availability_domain_facts:
+     # required
+       compartment_id: "put your tenancy ocid"
+     register: result
+
+   - name : print all the AD's
+     debug:
+      msg: "{{ result }}"
