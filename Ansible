@@ -103,3 +103,21 @@ createfile.yaml
     debug: msg="{{ ansible_distribution_version}}"
   - name: Distribution major version
     debug: msg="{{ ansible_distribution_major_version }}"
+    
+    
+ 
+- hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: install podman
+      command: yum install -y podman
+    - name: deploy nginx podman container
+      command: podman run -d  --name testnginx --privileged -p 8085:80 nginx
+    - name: list all containers
+      command: podman  ps -a
+    - name: verify service working
+      command: curl {{ansible_hostname}}:8085
+    - name: remove container
+      command : podman rm -f testnginx
+
