@@ -46,3 +46,28 @@ createfile.yaml
   handlers:
   - name: restart apache
     service: name=httpd state=restarted
+    
+ Remote-file.yaml
+- name: read file on host
+  hosts: all
+  remote_user: opc
+  vars:
+   contents: " "
+  tasks:
+   - name: Read the file
+     command: cat /home/opc/.ssh/authorized_keys
+     register: contents
+
+   - name: print file
+     debug:
+      msg: "the content of file is {{ contents }}"
+
+   - name: write a file
+     file: path=/home/opc/configfiles state=touch
+
+   - name: delete a file
+     file: path=/home/opc/configfiles state=absent
+
+   - name: closure
+     debug:
+        msg : "file created in {{inventory_hostname}}"
